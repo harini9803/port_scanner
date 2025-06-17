@@ -9,7 +9,6 @@ This document shows how to set up and run performance comparisons between the Ru
 * **Rust** (with `cargo` in your `PATH`)
 * **Python 3.x**
 * **Git** (to clone the repo)
-* **Network access** to the target IP for scanning
 
 Ensure you have both the Rust project and the Python script in the same directory:
 
@@ -98,7 +97,6 @@ echo "  Python: ${py_duration}s"
 * The **Rust scanner** is fully compiled and optimized; you should see lower total scan times.
 * The **Python scanner** is interpreted and single-threaded; expect longer durations.
 
-Use the summary output to decide on performance trade‑offs and to quantify speedups.
 
 ---
 
