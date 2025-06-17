@@ -1,18 +1,18 @@
-#  Rust Port Scanner – Setup 
+# Rust Port Scanner – Setup
 
 This project is a fast and simple CLI-based port scanner written in Rust. It includes optional banner grabbing, configurable timeouts, and full unit test coverage for the port range parser.
 
-Includes:
-- CLI interface using `clap`
-- Synchronous port scanning using `TcpStream`
-- Optional service banner grabbing
-- Unit-tested port range parsing
-- Performance comparison with a basic Python port scanner
+## Features
 
----
+* CLI interface using [`clap`](https://crates.io/crates/clap)
+* Synchronous port scanning using `TcpStream`
+* Optional service banner grabbing
+* Unit-tested port range parsing
+* Performance comparison with a basic Python port scanner
 
 ## Project Structure
 
+```
 port_scanner/
 ├── src/
 │   ├── main.rs          # Main application entry point
@@ -20,39 +20,40 @@ port_scanner/
 ├── tests/
 │   └── unit_tests.rs    # Unit tests for port range parsing
 ├── python_scanner.py    # Python implementation for comparison
-├── Cargo.toml          # Rust project configuration
-└── README.md           # Readme file                  
-
-
----
+├── Cargo.toml           # Rust project configuration
+└── README.md            # This readme file
+```
 
 ## Prerequisites
 
 Ensure the following are installed:
 
-- [Rust](https://www.rust-lang.org/tools/install) (`rustc`, `cargo`)
-- [VS Code](https://code.visualstudio.com/)
-- Rust Analyzer extension for IntelliSense and diagnostics
-- Python 3.x (for benchmarking comparison)
-- Git (optional)
+* [Rust](https://www.rust-lang.org/tools/install) (`rustc`, `cargo`)
+* [VS Code](https://code.visualstudio.com/) with the Rust Analyzer extension
+* Python 3.x (for benchmarking comparison)
+* Git (optional)
 
 Verify Rust setup:
 
+```bash
 rustc --version
 cargo --version
-
----
+```
 
 ## Setup and Running
 
-## 1. Initialize Rust Project
+### 1. Initialize Rust Project
 
-### Create new Rust project in your folder
-cargo new port_scanner 
+```bash
+cargo new port_scanner
 cd port_scanner
+```
 
-## 2. Add below dependencies to cargo.toml file
+### 2. Update `Cargo.toml`
 
+Add the following sections to your `Cargo.toml`:
+
+```toml
 [package]
 name = "port_scanner"
 version = "0.1.0"
@@ -68,59 +69,77 @@ path = "src/main.rs"
 [lib]
 name = "port_scanner"
 path = "src/lib.rs"
+```
 
-### 3.I. Working in main.rs
+### 3. Code Overview
 
-The `main.rs` file implements a command-line port scanner using the `clap` crate for argument parsing. It defines a struct `Args` to handle parameters like target IP, port range, connection timeout, verbose mode, and banner grabbing. The program parses the input port range, attempts TCP connections with specified timeouts, and reports open ports. If banner grabbing is enabled, it reads service banners from open ports. Verbose mode displays status for all scanned ports. The scanner measures and outputs the total time taken to complete the scan.
+#### `src/main.rs`
 
+* Uses `clap` for parsing command-line arguments.
+* Defines an `Args` struct for parameters such as:
 
-### II. Working of lib.rs
+  * `--ip <IP_ADDRESS>`: Target IP address
+  * `--ports <RANGE>`: Port range to scan (e.g., `20-100`)
+  * `--timeout <MILLIS>`: Connection timeout in milliseconds
+  * `--verbose`: Enable verbose output
+  * `--grab-banner`: Enable banner grabbing
+* Parses the port range and attempts TCP connections with the specified timeout.
+* Reports open ports and optionally prints service banners.
+* Measures and prints the total scan duration.
 
-The `parse_port_range` function validates and parses a port range string (e.g., "20-100") into a tuple of start and end ports. It checks if the input contains exactly two parts separated by a hyphen, converts these parts to valid u16 integers, ensures the start port is less than or equal to the end port, and returns appropriate error messages for any invalid cases.
+#### `src/lib.rs`
 
-### III. Working of unit_tests.rs
+* Implements the `parse_port_range` function:
 
-The provided tests for the `parse_port_range` function verify its functionality across different scenarios: checking if a valid port range like "10-20" is correctly parsed into a tuple (10, 20), ensuring an invalid format without a hyphen (e.g., "1020") returns an error, confirming non-numeric values (e.g., "abc-def") result in an error, and validating that a range where the start port is greater than the end port (e.g., "20-10") also returns an error.
+  1. Validates the format (must contain a single `-`).
+  2. Parses start and end ports as `u16`.
+  3. Ensures `start <= end`.
+  4. Returns `Result<(u16, u16), String>` with error messages for invalid input.
 
-## 4. Build the project
+#### `tests/unit_tests.rs`
 
-### Build in debug mode
-cargo build
+* Contains unit tests for `parse_port_range` covering:
 
-### Build optimized release version (recommended for performance)
-cargo build --release
+  * Valid range (e.g., `10-20`)
+  * Missing hyphen (e.g., `1020`)
+  * Non-numeric values (e.g., `abc-def`)
+  * Start port greater than end port (e.g., `20-10`)
 
-## 5. Running the port scanner
+## Building the Project
 
-### Run in debug mode via cargo
-cargo run -- --ip 127.0.0.1 --ports 20-100
+* **Debug mode**:
 
-### Or run the optimized release binary directly
-./target/release/port_scanner --ip 127.0.0.1 --ports 20-100
+  ```bash
+  cargo build
+  ```
+* **Release mode** (optimized):
 
-## 6. For running the unit tests
+  ```bash
+  cargo build --release
+  ```
 
-### Run all tests
-cargo test
+## Running the Port Scanner
 
-### Run only the custom integration tests
-cargo test --test unit_tests
+* **Using Cargo**:
 
+  ```bash
+  cargo run -- --ip 127.0.0.1 --ports 20-100
+  ```
+* **Direct Binary (release)**:
 
+  ```bash
+  ./target/release/port_scanner --ip 127.0.0.1 --ports 20-100
+  ```
 
+## Running Tests
 
+* Run all tests:
 
+  ```bash
+  cargo test
+  ```
+* Run only the port range parsing tests:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+  ```bash
+  cargo test -- --test-threads=1 unit_tests
+  ```
