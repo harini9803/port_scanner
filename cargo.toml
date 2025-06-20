@@ -1,0 +1,16 @@
+[package]
+name = "port_scanner"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "port_scanner"
+path = "src/main.rs"
+
+[lib]
+name = "port_scanner"
+path = "src/lib.rs"
+
+[dependencies]
+clap = { version = "4.0", features = ["derive"] }
+tokio = { version = "1.0", features = ["full"] }
