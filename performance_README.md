@@ -94,8 +94,8 @@ echo "  Python: ${py_duration}s"
 
 ## 4. Interpreting Results
 
-* The **Rust scanner** is fully compiled and optimized; you should see lower total scan times.
-* The **Python scanner** is interpreted and single-threaded; expect longer durations.
+* Average of time taken by rust port scanner for 5 tests: 212.468 seconds.
+* Average of time taken by python port scanner for 5 tests: 213.114 seconds.
 
 
 ---
