@@ -104,8 +104,8 @@ echo "  Python: ${py_duration}s"
 =======
 * Average of time taken by rust port scanner for 5 tests: 212.468 seconds.
 * Average of time taken by python port scanner for 5 tests: 213.114 seconds.
-* The Rust port scanner after adding asynchronous scanning using tokio provided 100x speedup and it ran in 
->>>>>>> Stashed changes
+* The Rust port scanner after adding asynchronous scanning using tokio provided 100x speedup and it ran in 2.15 seconds.
+
 
 
 ---
