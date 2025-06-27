@@ -12,5 +12,14 @@ name = "port_scanner"
 path = "src/lib.rs"
 
 [dependencies]
-clap = { version = "4.0", features = ["derive"] }
+clap = { version = "4", features = ["derive"] }
 tokio = { version = "1.0", features = ["full"] }
+reqwest = { version = "0.11", features = ["json", "rustls-tls"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+rustls = "0.21"
+rustls-pemfile = "1.0"
+webpki-roots = "0.25"
+chrono = { version = "0.4", features = ["serde"] }
+colored = "2.0"
+futures = "0.3"

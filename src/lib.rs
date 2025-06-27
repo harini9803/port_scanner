@@ -1,4 +1,3 @@
-
 pub fn parse_port_range(range: &str) -> Result<(u16, u16), String> {
     let parts: Vec<&str> = range.split('-').collect();
     if parts.len() != 2 {
@@ -14,3 +13,5 @@ pub fn parse_port_range(range: &str) -> Result<(u16, u16), String> {
 
     Ok((start, end))
 }
+
+pub mod banner_grabber;
