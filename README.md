@@ -36,8 +36,8 @@ port_scanner/
 │   └── unit_tests.rs      # Unit tests for port range parsing
 ├── python_scanner.py      # Python implementation for benchmarking
 ├── nmap-services          # nmap service definitions (required for service detection)
-├── README.md              # This file
-└── ... (other docs, reports, etc.)
+├── test_banner_grabber.py # File for testing the banner grabbing
+└── README.md              # This File and other documentation files 
 ```
 
 ---
