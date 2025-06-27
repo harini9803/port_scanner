@@ -188,7 +188,4 @@ This will:
 
 Planned improvements for banner grabbing:
 - SSL/TLS certificate information extraction
-- More protocol support (SSH, Telnet, etc.)
-- Banner fingerprinting for service identification
-- Custom banner templates for different services
 - Banner comparison and analysis features 
